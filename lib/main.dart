@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:first_app/screen/main_screen.dart';
-import 'package:first_app/model.dart';
+import 'package:hotel_manager/screen/main_screen.dart';
+
 
 void main() => runApp(MaterialApp(
   title: ' Example App',
