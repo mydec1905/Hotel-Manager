@@ -1,4 +1,4 @@
-
+import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:hotel_manager/model.dart';
 import 'package:hotel_manager/screen/edit.dart';
@@ -61,6 +61,7 @@ class _Hotel1State extends State<Hotel1> {
                                         .datestart}\nEnd :  ${widget.info1[index]
                                         .dateend}
                               ''')),
+                            IconButton(icon: Icon(Icons.phone), onPressed: ()=>launch("tel:${widget.info1[index].phone}")),
                             IconButton(
                               icon: Icon(Icons.edit),
                               onPressed: () {

@@ -23,6 +23,7 @@ dependencies:
   sqflite: ^0.12.2+1
   path_provider: any
   shared_preferences: ^0.4.3
+  url_launcher: ^4.0.1
 
 dev_dependencies:
   flutter_test:

@@ -5,7 +5,7 @@ import 'package:hotel_manager/screen/edit.dart';
 import 'package:hotel_manager/screen/input.dart';
 
 import 'package:intl/intl.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -57,6 +57,7 @@ class _Hotel3State extends State<Hotel3> {
                                 child: Text(
                                     '''Name : ${widget.info3[index].name}\nPhone: ${widget.info3[index].phone}\nPrepaid: ${widget.info3[index].paid} VND\nStart: ${widget.info3[index].datestart}\nEnd :  ${widget.info3[index].dateend}
                               ''')),
+                            IconButton(icon: Icon(Icons.phone), onPressed: ()=>launch("tel:${widget.info3[index].phone}")),
                             IconButton(
                               icon: Icon(Icons.edit),
                               onPressed: () {
