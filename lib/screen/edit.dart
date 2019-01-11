@@ -67,7 +67,7 @@ class EditState extends State<Edit> {
       ),
       body: Column(
         children: <Widget>[
-          TextField(
+          TextFormField(
             controller: editName,
             autofocus: true,
             keyboardType: TextInputType.text,
@@ -76,14 +76,14 @@ class EditState extends State<Edit> {
             decoration: InputDecoration(
                 labelText: 'Input Name', icon: Icon(Icons.person)),
           ),
-          TextField(
+          TextFormField(
             controller: editPhone,
             autofocus: false,
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
                 labelText: 'Input Phone Number', icon: Icon(Icons.phone)),
           ),
-          TextField(
+          TextFormField(
             controller: editPaid,
             keyboardType: TextInputType.number,
             decoration: InputDecoration(

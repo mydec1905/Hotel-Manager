@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
 
+
 class CustomerList extends StatefulWidget {
   final List<Customer> info;
 
@@ -50,13 +51,15 @@ class _CustomerListState extends State<CustomerList>
     ];
     return new Scaffold(
         appBar: AppBar(
-          title: Text('Customer List'),
+
+          title:
+          Image.asset('image/hotelicon.png',fit: BoxFit.fill,),
           bottom: TabBar(
             tabs: myTabs,
             controller: tabController,
           ),
         ),
-        body: new TabBarView(
+        body:  TabBarView(
           controller: tabController,
           children: <Widget>[
             Hotel1(
@@ -69,6 +72,7 @@ class _CustomerListState extends State<CustomerList>
               info3: danhsach3,
             )
           ],
-        ));
+        ),
+    );
   }
 }
