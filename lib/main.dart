@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hotel_manager/screen/main_screen.dart';
-import 'screen/launch_screen.dart';
+
 
 
 void main() => runApp(MaterialApp(

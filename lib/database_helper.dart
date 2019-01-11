@@ -43,6 +43,9 @@ class DBHelper{
     print(Customers.length);
     return Customers;
   }
+  Future<List<Customer>>deleteCustomer() async{
+
+  }
 
   void saveCustomer(Customer Customer) async {
     var dbClient = await db;
@@ -70,6 +73,8 @@ class DBHelper{
               ')' );
     });
   }
+
+
 
 
 }
