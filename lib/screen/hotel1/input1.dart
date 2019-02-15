@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:hotel_manager/model.dart';
 import 'dart:async';
 import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:hotel_manager/database_helper.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class Input extends StatefulWidget {
-  final List<Customer> infotemp;
-  final int index;
+  final Customer customer;
 
-  Input({Key key, this.infotemp, this.index}) : super(key: key);
+  Input(this.customer);
 
   @override
   State<StatefulWidget> createState() {
@@ -19,6 +18,7 @@ class Input extends StatefulWidget {
 }
 
 class InputState extends State<Input> {
+  final database = FirebaseDatabase.instance.reference().child("hotel1");
   TextEditingController namecontroller = TextEditingController();
   TextEditingController phonecontroller = TextEditingController();
   TextEditingController paidcontroller = TextEditingController();
@@ -32,6 +32,7 @@ class InputState extends State<Input> {
   String paid;
   String dateStart;
   String dateEnd;
+  String id;
 
   Future<Null> _selectDatestart(BuildContext context) async {
     final DateTime datestart = await showDatePicker(
@@ -77,8 +78,8 @@ class InputState extends State<Input> {
               textCapitalization: TextCapitalization.words,
               decoration: InputDecoration(
                   labelText: 'Input Name', icon: Icon(Icons.person)),
-              validator: (val)=>val.length==0?"Enter Name":null,
-              onSaved: (val)=>this.name = val,
+              validator: (val) => val.length == 0 ? "Enter Name" : null,
+              onSaved: (val) => this.name = val,
             ),
             TextFormField(
               controller: phonecontroller,
@@ -86,16 +87,16 @@ class InputState extends State<Input> {
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                   labelText: 'Input Phone Number', icon: Icon(Icons.phone)),
-              validator: (val)=>val.length==0?"Enter Phone Number":null,
-              onSaved: (val)=>this.phone = val,
+              validator: (val) => val.length == 0 ? "Enter Phone Number" : null,
+              onSaved: (val) => this.phone = val,
             ),
             TextFormField(
               controller: paidcontroller,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                   labelText: 'PrePaid', icon: Icon(Icons.attach_money)),
-              validator: (val)=>val.length==0?"Enter Money":null,
-              onSaved: (val)=>this.paid= val,
+              validator: (val) => val.length == 0 ? "Enter Money" : null,
+              onSaved: (val) => this.paid = val,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -126,45 +127,34 @@ class InputState extends State<Input> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          Customer temp = new Customer(
-            namecontroller.text,
-            phonecontroller.text,
-            paidcontroller.text,
-            DateFormat.yMd().format(start),
-            DateFormat.yMd().format(end),
-          );
-          var dbHelper = DBHelper();
-          dbHelper.saveCustomer(temp);
-
-          widget.infotemp.add(temp);
-          if (widget.infotemp.length > 1) {
-            widget.infotemp.sort((date, date2) {
-              return date.datestart.compareTo(date2.datestart);
+          if (widget.customer.id != null) {
+            database.child(widget.customer.id).set({
+              'name': '${namecontroller.text}',
+              'phone': '${phonecontroller.text}',
+              'paid': '${paidcontroller.text}',
+              'start': '${DateFormat.yMd().format(start)}',
+              'end': '${DateFormat.yMd().format(end)}'
+            }).then((_) {
+              Navigator.pop(context);
+            });
+          } else {
+            database.push().set({
+              'name': '${namecontroller.text}',
+              'phone': '${phonecontroller.text}',
+              'paid': '${paidcontroller.text}',
+              'start': '${DateFormat.yMd().format(start)}',
+              'end': '${DateFormat.yMd().format(end)}'
+            }).whenComplete(() {
+              print('Customer Added');
+            }).then((_) {
+              Navigator.pop(context);
             });
           }
-          _submit();
-
-          Navigator.of(context).pop();
         },
         icon: Icon(Icons.save),
-        label: Text('Save'),
+        label: (widget.customer.id != null) ? Text('Update') : Text('Add'),
         elevation: 50.0,
       ),
     );
-  }
-
-  void _submit() {
-    if (this.formKey.currentState.validate()) {
-      formKey.currentState.save();
-    }
-    var customer = Customer(name,phone,paid,dateStart,dateEnd);
-    var dbHelper = DBHelper();
-    dbHelper.saveCustomer(customer);
-    _showSnackBar("Data saved successfully");
-  }
-
-  void _showSnackBar(String text) {
-    scaffoldKey.currentState
-        .showSnackBar(new SnackBar(content: new Text(text)));
   }
 }

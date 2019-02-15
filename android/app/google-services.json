@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "93205120101",
+    "firebase_url": "https://hotelmanager-f7ea9.firebaseio.com",
+    "project_id": "hotelmanager-f7ea9",
+    "storage_bucket": "hotelmanager-f7ea9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:93205120101:android:2c8c039ce17e5707",
+        "android_client_info": {
+          "package_name": "com.example.hotelmanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "93205120101-5740aqpf34r5sblihlneqhlkkua4vugu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKGCl47yHVelEE4gs3Si7bgMJ5ReEtxHs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

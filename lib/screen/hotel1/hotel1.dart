@@ -1,37 +1,54 @@
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:hotel_manager/model.dart';
-import 'package:hotel_manager/screen/edit.dart';
-import 'package:hotel_manager/screen/input.dart';
-
+import 'package:hotel_manager/screen/hotel1/edit.dart';
+import 'package:hotel_manager/screen/hotel1/input1.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'dart:async';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Hotel2 extends StatefulWidget {
-  final List<Customer> info2;
+class Hotel1 extends StatefulWidget {
+  final List<Customer> info1;
+  Hotel1({Key key, this.info1}) : super(key: key);
 
-  Hotel2({Key key, this.info2}) : super(key: key);
+
 
   @override
-  _Hotel2State createState() => _Hotel2State();
+  _Hotel1State createState() => _Hotel1State();
 }
-
-class _Hotel2State extends State<Hotel2> {
+final hotelReference = FirebaseDatabase.instance.reference().child('hotel1');
+class _Hotel1State extends State<Hotel1> {
+  StreamSubscription<Event> customerAddedSubscription;
+  StreamSubscription<Event> customerChangedSubscription;
   final dateFormat = DateFormat.yMd();
-  TextEditingController noted = TextEditingController();
-  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  @override
+  void initState() {
+
+customerAddedSubscription = hotelReference.onChildAdded.listen(customerAdded);
+customerChangedSubscription = hotelReference.onChildChanged.listen(customerUpdated);
+    super.initState();
+  }
+  @override
+  void dispose() {
+    customerAddedSubscription.cancel();
+    customerChangedSubscription.cancel();
+    super.dispose();
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         child: ListView.builder(
-          itemCount: widget.info2?.length ?? 0,
+          itemCount: widget.info1?.length ?? 0,
           itemBuilder: (context, index) {
             final cardColor =
-            index % 2 == 0 ? Colors.pinkAccent : Colors.yellowAccent;
+                index % 2 == 0 ? Colors.pinkAccent : Colors.yellowAccent;
             return Container(
               color: cardColor,
               child: ExpansionTile(
@@ -39,11 +56,11 @@ class _Hotel2State extends State<Hotel2> {
                   children: <Widget>[
                     Align(
                       alignment: Alignment.topLeft,
-                      child: Text('${widget.info2[index].name}'),
+                      child: Text('${widget.info1[index].name}'),
                     ),
                     Align(
                       alignment: Alignment.topRight,
-                      child: Text('${widget.info2[index].datestart}'),
+                      child: Text('${widget.info1[index].datestart}'),
                     )
                   ],
                 ),
@@ -55,20 +72,16 @@ class _Hotel2State extends State<Hotel2> {
                           children: <Widget>[
                             Expanded(
                                 child: Text(
-                                    '''Name : ${widget.info2[index].name}\nPhone: ${widget.info2[index].phone}\nPrepaid: ${widget.info2[index].paid} VND\nStart: ${widget.info2[index].datestart}\nEnd :  ${widget.info2[index].dateend}
+                                    '''Name : ${widget.info1[index].name}\nPhone: ${widget.info1[index].phone}\nPrepaid: ${widget.info1[index].paid} VND\nStart: ${widget.info1[index].datestart}\nEnd :  ${widget.info1[index].dateend}
                               ''')),
-                            IconButton(icon: Icon(Icons.phone), onPressed: ()=>launch("tel:${widget.info2[index].phone}")),
+                            IconButton(
+                                icon: Icon(Icons.phone),
+                                onPressed: () =>
+                                    launch("tel:${widget.info1[index].phone}")),
                             IconButton(
                               icon: Icon(Icons.edit),
                               onPressed: () {
-                                // widget.info3.removeAt(index);
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => Edit(
-                                          index: index,
-                                          temp: widget.info2,
-                                        )));
+                                editCustomer(context, widget.info1[index]);
                               },
                             ),
                             IconButton(
@@ -82,7 +95,7 @@ class _Hotel2State extends State<Hotel2> {
                                           actions: <Widget>[
                                             FlatButton(
                                               onPressed: () {
-                                                deleteCustomer(index);
+                                                deleteCustomer(context,widget.info1[index],index);
                                                 setState(() {});
                                                 Navigator.pop(context);
                                               },
@@ -110,18 +123,40 @@ class _Hotel2State extends State<Hotel2> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => Input(infotemp: widget.info2)));
-        },
+        onPressed: ()=>createNewCustomer(context),
         child: Icon(Icons.add),
       ),
     );
   }
 
-  deleteCustomer(int index) {
-    widget.info2.removeAt(index);
+  void deleteCustomer(BuildContext context,Customer customer,int index) async{
+
+    await hotelReference.child(customer.id).remove().then((_){
+      setState(() {
+        widget.info1.removeAt(index);
+      });
+    });
+
   }
+  void customerAdded(Event event){
+    setState(() {
+      widget.info1.add(Customer.fromSnapshot(event.snapshot));
+    });
+  }
+  void customerUpdated(Event event){
+    var customerValue = widget.info1.singleWhere((customer)=> customer.id == event.snapshot.key);
+    setState(() {
+      widget.info1[widget.info1.indexOf(customerValue)]= Customer.fromSnapshot(event.snapshot);
+    });
+  }
+  void createNewCustomer(BuildContext context)async{
+    await Navigator.push(context, MaterialPageRoute(builder: (context)=>Input(Customer(null, '', '', '', '', ''))));
+  }
+  void editCustomer(BuildContext context, Customer customer)async{
+    await Navigator.push(context, MaterialPageRoute(builder: (context)=>Input(customer)));
+  }
+
+
 }
+
+

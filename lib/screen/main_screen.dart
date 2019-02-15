@@ -1,9 +1,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:hotel_manager/model.dart';
-import 'package:hotel_manager/screen/hotel1.dart';
-import 'package:hotel_manager/screen/hotel2.dart';
-import 'package:hotel_manager/screen/hotel3.dart';
+import 'package:hotel_manager/screen/hotel1/hotel1.dart';
+import 'package:hotel_manager/screen/hotel2/hotel2.dart';
+import 'package:hotel_manager/screen/hotel3/hotel3.dart';
 import 'package:intl/intl.dart';
 import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -53,7 +53,7 @@ class _CustomerListState extends State<CustomerList>
         appBar: AppBar(
 
           title:
-          Image.asset('image/hotelicon.png',fit: BoxFit.fill,),
+          Text('Hotel Manager'),
           bottom: TabBar(
             tabs: myTabs,
             controller: tabController,
@@ -68,9 +68,9 @@ class _CustomerListState extends State<CustomerList>
             Hotel2(
               info2: danhsach2,
             ),
-            Hotel3(
-              info3: danhsach3,
-            )
+//            Hotel3(
+//              info3: danhsach3,
+//            )
           ],
         ),
     );
