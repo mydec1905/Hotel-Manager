@@ -4,6 +4,9 @@ import 'package:hotel_manager/screens/tours_detail/toursdetail.dart';
 import 'package:hotel_manager/screens/menu/animate_menu.dart';
 import 'package:hotel_manager/screens/menu/menu.dart';
 import 'package:hotel_manager/screens/tours_booking/toursbooking.dart';
+
+import 'chart/chart_screen.dart';
+import 'hotel_booking/hotelbooking.dart';
 class MainScreen extends StatefulWidget {
   @override
   _MainScreenState createState() => _MainScreenState();
@@ -21,12 +24,12 @@ class _MainScreenState extends State<MainScreen> {
         title: 'TOUR BOOKING',
       ),
       new MenuItem(
-        id: 'other2',
+        id: 'hotelbooking',
         title: 'HOTEL BOOKING',
       ),
       new MenuItem(
-        id: 'other3',
-        title: 'TICKET BOOKING',
+        id: 'chart',
+        title: 'CHART',
       ),
     ],
   );
@@ -49,6 +52,16 @@ class _MainScreenState extends State<MainScreen> {
           }else if(itemId == 'toursbooking'){
             setState(() {
               activeScreen = toursBooking;
+            });
+          }
+          else if(itemId == 'hotelbooking'){
+            setState(() {
+              activeScreen = hotelBooking;
+            });
+          }
+          else if(itemId == 'chart'){
+            setState(() {
+              activeScreen = chart;
             });
           }
 

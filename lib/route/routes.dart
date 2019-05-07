@@ -1,6 +1,6 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:hotel_manager/screens/route/route_handlers.dart';
+import 'package:hotel_manager/route/route_handlers.dart';
 class Routes{
   static String root = '/';
   static String splashScreen = '/SplashScreen';
