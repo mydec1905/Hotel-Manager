@@ -1,39 +1,44 @@
 {
   "project_info": {
-    "project_number": "93205120101",
-    "firebase_url": "https://hotelmanager-f7ea9.firebaseio.com",
-    "project_id": "hotelmanager-f7ea9",
-    "storage_bucket": "hotelmanager-f7ea9.appspot.com"
+    "project_number": "496356704890",
+    "firebase_url": "https://travel-management-78c58.firebaseio.com",
+    "project_id": "travel-management-78c58",
+    "storage_bucket": "travel-management-78c58.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:93205120101:android:2c8c039ce17e5707",
+        "mobilesdk_app_id": "1:496356704890:android:2c8c039ce17e5707",
         "android_client_info": {
           "package_name": "com.example.hotelmanager"
         }
       },
       "oauth_client": [
         {
-          "client_id": "93205120101-5740aqpf34r5sblihlneqhlkkua4vugu.apps.googleusercontent.com",
+          "client_id": "496356704890-ggc0k00hc1b16pe6j31bu6oj83o6954p.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBKGCl47yHVelEE4gs3Si7bgMJ5ReEtxHs"
+          "current_key": "AIzaSyDQv84TLCgEoyANHseACcGAu4nlgXHZz_g"
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
+          "other_platform_oauth_client": [
+            {
+              "client_id": "496356704890-ggc0k00hc1b16pe6j31bu6oj83o6954p.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "496356704890-2tkt6847puvr51jj39ok84f1fcrava9p.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "hotelManager.example.com"
+              }
+            }
+          ]
         }
       }
     }

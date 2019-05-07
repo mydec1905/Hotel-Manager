@@ -24,9 +24,13 @@ dependencies:
   path_provider: any
   shared_preferences: ^0.4.3
   url_launcher: ^4.0.1
-  barcode_scan: ^0.0.8
-  firebase_core: any
-  firebase_database: any
+  cloud_firestore: any
+  webview_flutter: ^0.3.6
+  flutter_slidable: ^0.4.9
+  fluro: 1.4.0
+  flutter_cupertino_date_picker: ^0.4.0
+
+
 
 dev_dependencies:
   flutter_test:
@@ -46,10 +50,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-#  assets:
-#     - image/phuquoc.jpg
-#     - image/hotel1.jpg
-#     - image/hotelicon.png
+  assets:
+     - assets/Sea_and_sky_light.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.

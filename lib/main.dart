@@ -1,31 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:hotel_manager/screen/main_screen.dart';
+import 'package:flutter/services.dart';
 
+import 'app/app.dart';
 
-
-void main() => runApp(MaterialApp(
-  title: ' Example App',
-home: MyApp(),
-//  home: LaunchScreen(),routes: <String , WidgetBuilder>{
-//    '/CustomerList':(BuildContext context)=>CustomerList()
-//},
-  theme: ThemeData(primarySwatch: Colors.lightGreen)
-));
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
+void main(){
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((_){
+    runApp(TravelApp());
+  });
 }
-
-class _MyAppState extends State<MyApp> {
-
-
-
-  @override
-  Widget build(BuildContext context) {
-    return CustomerList();
-  }
-}
-
-
-
-
