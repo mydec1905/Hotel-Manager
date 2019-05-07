@@ -293,11 +293,11 @@ key = 'NT';
      print('saved');
    //  updateCountBooking();
     }).whenComplete((){
-      final DocumentReference reference = Firestore.instance.collection('TOURS_DETAILS').document('LFcUmd6SEtrsUv6fp6qb');
+      final DocumentReference reference = Firestore.instance.collection('TOURS_DETAIL').document('LFcUmd6SEtrsUv6fp6qb');
       Firestore.instance.runTransaction((Transaction transaction )async{
         DocumentSnapshot snapshot = await transaction.get(reference);
         if(snapshot.exists){
-          await  transaction.update(reference, <String,dynamic>{'book_count':snapshot.data['book_count'] + 2});
+          await  transaction.update(reference, <String,dynamic>{'book_count':snapshot.data['book_count'] + int.parse(quality)});
           print('snapshot exists');
         }else {
           print('error');
