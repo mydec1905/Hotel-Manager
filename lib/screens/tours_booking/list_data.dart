@@ -6,7 +6,9 @@ import 'package:hotel_manager/theme/color.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter/cupertino.dart';
-var streamDataTour = StreamData.streamDefault;
+var streamDataTour = StreamData.streamDefault ;
+
+
 class ListViewContent extends StatelessWidget {
   final Animation<double> listTileWidth;
   final Animation<Alignment> listSlideAnimation;

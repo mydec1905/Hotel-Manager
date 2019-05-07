@@ -24,6 +24,8 @@ var _date = DateTime.now().day;
 var _month = DateTime.now().month;
 var _year = DateTime.now().year;
 String dateSelected = DateFormat('dd-MM-yyyy').format(now);
+
+
 final Screen toursBooking = new Screen(
     title: 'TOURS BOOKING',
     background: new DecorationImage(
@@ -33,6 +35,9 @@ final Screen toursBooking = new Screen(
     contentBuilder: (BuildContext context) {
       return HomeScreen();
     });
+
+
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key key}) : super(key: key);
@@ -217,6 +222,8 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                     icon: Icons.calendar_today,
                                     buttonGrowAnimation: buttonGrowAnimation,
                                     function: () {
+
+
                                       DatePicker.showDatePicker(
                                         context,
                                         showTitleActions: true,
@@ -236,6 +243,7 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                               if (month < 10) {
                                                 dateSelected =
                                                     '${_date.toString().padLeft(2, '0')}-${_month.toString().padLeft(2, '0')}-$_year';
+
                                               } else {
                                                 dateSelected =
                                                     '${_date.toString().padLeft(2, '0')}-$_month-$_year';
@@ -250,20 +258,23 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                               }
                                             }
                                           });
+                                          print('------>$dateSelected');
                                         },
                                         onConfirm: (year, month, date) {
+
                                           setState(() {
-                                            streamDataTour =
-                                                StreamData.filterByDate;
-                                            print(dateSelected);
+
+                                            streamDataTour = StreamData.getDateFilter();
 
                                             dateSelected = DateFormat('dd-MM-yyyy').format(now);
                                             print('--> $dateSelected');
 
                                           });
+
                                         },
                                         onCancel: () {
                                           setState(() {
+                                            streamDataTour = StreamData.streamDefault;
                                             _date = DateTime.now().day;
                                             _month = DateTime.now().month;
                                             _year = DateTime.now().year;
@@ -385,4 +396,5 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       ),
     ));
   }
+
 }
