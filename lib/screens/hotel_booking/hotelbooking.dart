@@ -253,7 +253,7 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                     onConfirm: (year, month, date) {
                                       setState(() {
                                         streamDataTour =
-                                            StreamData.filterByDate;
+                                            StreamData.getDateFilter();
                                         print(dateSelected);
 
                                         dateSelected = DateFormat('dd-MM-yyyy').format(now);

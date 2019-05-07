@@ -13,12 +13,16 @@ class AddCustomer extends StatefulWidget {
 class _AddCustomerState extends State<AddCustomer> {
   List<DropdownMenuItem<String>> listDrop = [];
   DateTime selectedDate = DateTime.now();
-  String name, phone, quality, pickupLocation,key;
+  String name, phone, quality, pickupLocation, key;
 
   final _formKey = GlobalKey<FormState>();
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  static final List<String> locationList = <String>['Phu Quoc', 'Nha Trang'];
+  static final List<String> locationList = <String>[
+    'Phu Quoc',
+    'Nha Trang',
+    'Hoi An'
+  ];
 
   static List<String> tourPhuQuoc = <String>[
     'Phu Quoc 1',
@@ -32,6 +36,12 @@ class _AddCustomerState extends State<AddCustomer> {
     'Nha Trang 3',
     'Nha Trang 4',
   ];
+  static List<String> tourHoiAn = <String>[
+    'Hoi An 1',
+    'Hoi An 2',
+    'Hoi An 3',
+    'Hoi An 4',
+  ];
   static List<String> itemList = <String>[];
   String locationSelected = 'Phu Quoc';
   String tourSelectedTemp = 'Phu Quoc 1';
@@ -41,17 +51,24 @@ class _AddCustomerState extends State<AddCustomer> {
     if (locationSelected == 'Phu Quoc') {
       setState(() {
         itemList = tourPhuQuoc;
-key = 'PQ';
+        key = 'PQ';
         print('---->$itemList');
       });
       tourSelected = 'Phu Quoc 1';
     } else if (locationSelected == 'Nha Trang') {
       setState(() {
         itemList = tourNhaTrang;
-key = 'NT';
+        key = 'NT';
         print('---->$itemList');
       });
       tourSelected = 'Nha Trang 1';
+    }else if (locationSelected == 'Hoi An') {
+      setState(() {
+        itemList = tourHoiAn;
+        key = 'NT';
+        print('---->$itemList');
+      });
+      tourSelected = 'Hoi An 1';
     }
   }
 
@@ -72,8 +89,7 @@ key = 'NT';
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       key: _scaffoldKey,
-      body:
-      Container(
+      body: Container(
         decoration: BoxDecoration(
             image: DecorationImage(
                 image: AssetImage('assets/Sea_and_sky_light.jpg'),
@@ -91,7 +107,7 @@ key = 'NT';
                   icon: Icon(Icons.arrow_back_ios),
                   iconFunction: () {
                     setState(() {
-                      itemList=[];
+                      itemList = [];
                     });
                     Navigator.pop(context);
                   },
@@ -208,10 +224,12 @@ key = 'NT';
                   Expanded(
                     child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child:
-                            FlatButton(
-                              child: Text(DateFormat('dd-MM-yyyy').format(selectedDate),style: TextStyle(fontSize: 20),),
-                                onPressed: () => _selectDate(context))),
+                        child: FlatButton(
+                            child: Text(
+                              DateFormat('dd-MM-yyyy').format(selectedDate),
+                              style: TextStyle(fontSize: 20),
+                            ),
+                            onPressed: () => _selectDate(context))),
                   ),
                 ],
               ),
@@ -256,7 +274,7 @@ key = 'NT';
                     _formKey.currentState.reset();
                     Navigator.pop(context);
                     setState(() {
-                      itemList=[];
+                      itemList = [];
                     });
                   }
                 },
@@ -277,7 +295,7 @@ key = 'NT';
   Future<void> save() async {
     final Firestore _firestore = Firestore.instance;
     DocumentReference reference =
-    _firestore.collection('TOUR_BOOKING_LIST').document();
+        _firestore.collection('TOUR_BOOKING_LIST').document();
     return reference.setData({
       'name': name,
       'phone': phone,
@@ -288,33 +306,26 @@ key = 'NT';
       'location': locationSelected,
       'key': key,
       'time': DateTime.now().millisecondsSinceEpoch,
-
-    }).whenComplete((){
-     print('saved');
-   //  updateCountBooking();
-    }).whenComplete((){
-      final DocumentReference reference = Firestore.instance.collection('TOURS_DETAIL').document('LFcUmd6SEtrsUv6fp6qb');
-      Firestore.instance.runTransaction((Transaction transaction )async{
+    }).whenComplete(() {
+      print('saved');
+      //  updateCountBooking();
+    }).whenComplete(() {
+      final DocumentReference reference = Firestore.instance
+          .collection('TOURS_DETAIL')
+          .document(locationSelected);
+      Firestore.instance.runTransaction((Transaction transaction) async {
         DocumentSnapshot snapshot = await transaction.get(reference);
-        if(snapshot.exists){
-          await  transaction.update(reference, <String,dynamic>{'book_count':snapshot.data['book_count'] + int.parse(quality)});
+        if (snapshot.exists) {
+          await transaction.update(reference, <String, dynamic>{
+            'book_count': snapshot.data['book_count'] + int.parse(quality)
+          });
           print('snapshot exists');
-        }else {
+        } else {
           print('error');
         }
-
-      }).catchError((e){
+      }).catchError((e) {
         print(e);
       });
     });
   }
-//  Future<void> updateCountBooking() async{
-//   if(locationSelected == ' Phu Quoc'){
-//     .whenComplete((){
-//       print('update count');
-//     });
-//
-//
-//   }
-//  }
 }

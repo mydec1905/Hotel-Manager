@@ -44,7 +44,6 @@ class _MainScreenState extends State<MainScreen> {
         menu: menu,
         selectedItemId: selectedMenuItemId,
         onMenuItemSelected: (String itemId) {
-          selectedMenuItemId = itemId;
           if (itemId == 'toursdetail') {
             setState(() {
               activeScreen = toursDetails;

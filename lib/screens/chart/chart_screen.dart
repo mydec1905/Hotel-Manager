@@ -1,11 +1,7 @@
-import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:hotel_manager/screens/menu/animate_menu.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:hotel_manager/screens/components/loading_indicator.dart';
-import 'package:hotel_manager/theme/color.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+
 
 import 'tours_chart.dart';
 
