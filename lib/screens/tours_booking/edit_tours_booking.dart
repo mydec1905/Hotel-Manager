@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hotel_manager/screens/components/custom_appbar.dart';
 import 'package:hotel_manager/screens/components/loading_indicator.dart';
-import 'package:hotel_manager/screens/components/stream_data.dart';
+import 'package:hotel_manager/key_data/stream_data.dart';
 import 'package:intl/intl.dart';
 
 class EditCustomer extends StatefulWidget {

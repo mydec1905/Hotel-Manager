@@ -5,12 +5,11 @@ import 'package:hotel_manager/screens/components/button.dart';
 
 import 'package:hotel_manager/screens/components/calendar.dart';
 import 'package:hotel_manager/screens/components/fade_box.dart';
-import 'package:hotel_manager/screens/components/stream_data.dart';
+import 'package:hotel_manager/key_data/stream_data.dart';
 
 import 'package:hotel_manager/screens/menu/animate_menu.dart';
 import 'package:hotel_manager/screens/tours_booking/add_tours_booking.dart';
 import 'package:hotel_manager/screens/tours_booking/animation.dart';
-import 'package:hotel_manager/screens/tours_booking/list_data.dart';
 import 'package:hotel_manager/theme/color.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
@@ -18,29 +17,32 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
 
+import 'add_hotels_booking.dart';
+import 'list_hotel_data.dart';
+
 DateTime now = DateTime.now();
 var _date = DateTime.now().day;
 var _month = DateTime.now().month;
 var _year = DateTime.now().year;
 String dateSelected = DateFormat('dd-MM-yyyy').format(now);
-final Screen hotelBooking = new Screen(
+final Screen hotelsBooking = new Screen(
     title: 'HOTELS BOOKING',
     background: new DecorationImage(
       image: new AssetImage('assets/Sea_and_sky_light.jpg'),
       fit: BoxFit.cover,
     ),
     contentBuilder: (BuildContext context) {
-      return HomeScreen();
+      return HotelsBooking();
     });
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key key}) : super(key: key);
+class HotelsBooking extends StatefulWidget {
+  const HotelsBooking({Key key}) : super(key: key);
 
   @override
-  HomeScreenState createState() => new HomeScreenState();
+  HotelsBookingState createState() => new HotelsBookingState();
 }
 
-class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
+class HotelsBookingState extends State<HotelsBooking> with TickerProviderStateMixin {
   Animation<double> containerGrowAnimation;
   AnimationController _screenController;
   AnimationController _buttonController;
@@ -179,7 +181,7 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               ListView(
                 children: <Widget>[
                   Calender(),
-                  ListViewContent(
+                  ListHotelContent(
                       listSlideAnimation: listSlideAnimation,
                       listSlidePosition: listSlidePosition,
                       listTileWidth: listTileWidth)
@@ -252,7 +254,7 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                     },
                                     onConfirm: (year, month, date) {
                                       setState(() {
-                                        streamDataTour =
+                                        streamDataHotel =
                                             StreamData.getDateFilter();
                                         print(dateSelected);
 
@@ -291,7 +293,7 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                       context,
                                       MaterialPageRoute(
                                           builder: (BuildContext context) =>
-                                              AddCustomer()));
+                                              AddHotelCustomer()));
                                 },
                               ),
                             )),
@@ -328,7 +330,7 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                                 child: Text('Get All'),
                                                 onPressed: () {
                                                   setState(() {
-                                                    streamDataTour =
+                                                    streamDataHotel =
                                                         StreamData
                                                             .streamDefault;
                                                     Navigator.pop(context);
@@ -338,7 +340,7 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                                 child: Text('Phu Quoc'),
                                                 onPressed: () {
                                                   setState(() {
-                                                    streamDataTour =
+                                                    streamDataHotel =
                                                         StreamData.phuQuoc;
                                                     Navigator.pop(context);
                                                   });
@@ -347,7 +349,7 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                                 child: Text('Nha Trang'),
                                                 onPressed: () {
                                                   setState(() {
-                                                    streamDataTour =
+                                                    streamDataHotel =
                                                         StreamData.nhaTrang;
                                                     Navigator.pop(context);
                                                   });

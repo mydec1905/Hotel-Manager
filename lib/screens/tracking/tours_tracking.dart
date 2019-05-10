@@ -1,12 +1,13 @@
 
 import 'package:flutter/material.dart';
+import 'package:hotel_manager/key_data/key_tour_data.dart';
 import 'package:hotel_manager/screens/menu/animate_menu.dart';
-
-
+import 'package:hotel_manager/screens/tracking/tours_progress.dart';
+import 'package:hotel_manager/theme/color.dart';
+import 'package:flutter/cupertino.dart';
 import 'tours_chart.dart';
-
-final Screen chart = new Screen(
-    title: 'CHART',
+final Screen tours_tracking_screen = new Screen(
+    title: 'TOURS TRACKING',
     background: new DecorationImage(
       image: new AssetImage('assets/Sea_and_sky_light.jpg'),
       fit: BoxFit.cover,
@@ -26,12 +27,14 @@ class ChartScreen extends StatefulWidget {
 class _ChartScreenState extends State<ChartScreen> with SingleTickerProviderStateMixin {
   int _currentIndex = 0;
 
+
   List<Widget> _tabList = [
     Container(
       color: Colors.transparent,
       child: TourChart(),
     ),
     Container(
+      child: TourProgress(),
       color: Colors.transparent,
     ),
 
@@ -57,12 +60,14 @@ class _ChartScreenState extends State<ChartScreen> with SingleTickerProviderStat
       backgroundColor: Colors.transparent,
       body: TabBarView(children: _tabList,controller: _tabController,),
       bottomNavigationBar: BottomNavigationBar(
+
+
         backgroundColor: Colors.transparent,
         currentIndex: _currentIndex,
-        onTap: (currentIndex){
+        onTap: (index){
 
           setState(() {
-            _currentIndex = currentIndex;
+            _currentIndex = index;
           });
 
           _tabController.animateTo(_currentIndex);
@@ -70,13 +75,13 @@ class _ChartScreenState extends State<ChartScreen> with SingleTickerProviderStat
         },
         items: [
           BottomNavigationBarItem(
-              title: Text("TOURS"),
-            icon: Icon(Icons.airplanemode_active)
+              title: Text("CHART"),
+            icon: Icon(Icons.show_chart)
 
           ),
           BottomNavigationBarItem(
-              title: Text("HOTELS"),
-              icon: Icon(Icons.home)
+              title: Text("PROGRESS"),
+              icon: Icon(Icons.account_balance)
           ),
 
         ],

@@ -5,7 +5,7 @@ import 'package:hotel_manager/screens/components/button.dart';
 
 import 'package:hotel_manager/screens/components/calendar.dart';
 import 'package:hotel_manager/screens/components/fade_box.dart';
-import 'package:hotel_manager/screens/components/stream_data.dart';
+import 'package:hotel_manager/key_data/stream_data.dart';
 
 import 'package:hotel_manager/screens/menu/animate_menu.dart';
 import 'package:hotel_manager/theme/color.dart';
@@ -15,7 +15,7 @@ import 'package:flutter/foundation.dart';
 
 import 'add_tours_booking.dart';
 import 'animation.dart';
-import 'list_data.dart';
+import 'list_tour_data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
 
@@ -33,20 +33,20 @@ final Screen toursBooking = new Screen(
       fit: BoxFit.cover,
     ),
     contentBuilder: (BuildContext context) {
-      return HomeScreen();
+      return ToursBooking();
     });
 
 
 
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key key}) : super(key: key);
+class ToursBooking extends StatefulWidget {
+  const ToursBooking({Key key}) : super(key: key);
 
   @override
-  HomeScreenState createState() => new HomeScreenState();
+  ToursBookingState createState() => new ToursBookingState();
 }
 
-class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
+class ToursBookingState extends State<ToursBooking> with TickerProviderStateMixin {
   Animation<double> containerGrowAnimation;
   AnimationController _screenController;
   AnimationController _buttonController;
@@ -185,7 +185,7 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               ListView(
                 children: <Widget>[
                   Calender(),
-                  ListViewContent(
+                  ListTourContent(
                       listSlideAnimation: listSlideAnimation,
                       listSlidePosition: listSlidePosition,
                       listTileWidth: listTileWidth)
@@ -222,7 +222,7 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                     icon: Icons.calendar_today,
                                     buttonGrowAnimation: buttonGrowAnimation,
                                     function: () {
-/////////
+
 
                                       DatePicker.showDatePicker(
                                         context,
@@ -377,7 +377,11 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                                 CupertinoActionSheetAction(
                                                   child: Text('Hoi An'),
                                                   onPressed: () =>
-                                                      print('Hoi An'),
+                                                      setState(() {
+                                                        streamDataTour =
+                                                            StreamData.hoiAn;
+                                                        Navigator.pop(context);
+                                                      })
                                                 ),
                                               ],
                                             );
