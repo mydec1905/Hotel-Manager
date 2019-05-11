@@ -62,7 +62,7 @@ class _ChartScreenState extends State<ChartScreen> with SingleTickerProviderStat
       bottomNavigationBar: BottomNavigationBar(
 
 
-        backgroundColor: Colors.transparent,
+       // backgroundColor: Colors.transparent,
         currentIndex: _currentIndex,
         onTap: (index){
 

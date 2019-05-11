@@ -11,7 +11,7 @@ import 'package:date_format/date_format.dart';
 
 var streamDataHotel = StreamData.streamHotelDefault;
 
-class ListHotelContent extends StatelessWidget {
+class ListHotelContent extends StatefulWidget {
   final Animation<double> listTileWidth;
   final Animation<Alignment> listSlideAnimation;
   final Animation<EdgeInsets> listSlidePosition;
@@ -22,7 +22,14 @@ class ListHotelContent extends StatelessWidget {
     this.listTileWidth,
   });
 
-  List<Widget> roomList = List<Widget>();
+  @override
+  _ListHotelContentState createState() => _ListHotelContentState();
+}
+
+class _ListHotelContentState extends State<ListHotelContent> {
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +59,7 @@ class ListHotelContent extends StatelessWidget {
 
   Widget _data(BuildContext context, DocumentSnapshot snapshot) {
     final data = HotelData.fromSnapshot(snapshot);
+
     return Slidable(
       delegate: SlidableDrawerDelegate(),
       actionExtentRatio: 0.25,
@@ -135,21 +143,27 @@ class ListHotelContent extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20),
                     color: AppColors.primary,
                   )),
-              children: _buildList(context, snapshot)
+              children: roomList
             )),
         //),
       ),
     );
   }
 
+  List<Widget> roomList = List<Widget>();
+
   _buildList(BuildContext context, DocumentSnapshot snapshot) {
     final data = HotelData.fromSnapshot(snapshot);
-    var length = data.room.length;
+     var length = data.room.length;
     for (int i = 0; i < length; i++) {
-      roomList.add(_buildRoomItem(context, snapshot,i));
+
+
+      roomList.add( _buildRoomItem(context, snapshot, i));
     }
     return roomList;
   }
+
+
 
   _buildRoomItem(BuildContext context, DocumentSnapshot snapshot, int index) {
     final data = HotelData.fromSnapshot(snapshot);
@@ -157,7 +171,7 @@ class ListHotelContent extends StatelessWidget {
       child: Row(
         children: <Widget>[
         Expanded(child: Center(child: Text('${data.room[index].room} :',style: headingText,))),
-        Expanded(child: Center(child: Text(data.room[index].quality.toString(),style: headingText,)))
+        Expanded(child: Center(child: Text(data.room[index].quality,style: headingText,)))
         ],
       ),
     );
@@ -188,9 +202,9 @@ class HotelData {
 
 class Room {
   final String room;
-  final int quality;
+  final String quality;
 
   Room.fromMap(Map<dynamic, dynamic> data)
-      : room = data['room'],
+      : room = data['title'],
         quality = data['quality'];
 }

@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hotel_manager/key_data/key_hotel_data.dart';
 import 'package:hotel_manager/screens/components/custom_appbar.dart';
+import 'package:hotel_manager/screens/hotel_booking/list_hotel_data.dart';
 import 'package:intl/intl.dart';
 
 class AddHotelCustomer extends StatefulWidget {
@@ -212,7 +213,9 @@ class _AddHotelCustomerState extends State<AddHotelCustomer> {
                         decoration: InputDecoration(
                             hintText: 'Quality',
                             hintStyle: TextStyle(color: Colors.grey)),
-                        onSaved: (value) => this.room.quality = value,
+                        onSaved: (value) {room.quality = value;
+
+                        }
                       ),
                     ),
                   ),
@@ -261,6 +264,7 @@ class _AddHotelCustomerState extends State<AddHotelCustomer> {
                     Navigator.pop(context);
                     setState(() {
                       itemList = [];
+
                     });
                   }
                 },
@@ -280,6 +284,7 @@ class _AddHotelCustomerState extends State<AddHotelCustomer> {
 
   Future<void> save() async {
 
+    customerHotel.room2.add(room.toMap());
     final Firestore _firestore = Firestore.instance;
     DocumentReference reference =
         _firestore.collection('HOTEL_BOOKING_LIST').document();
@@ -290,8 +295,11 @@ class _AddHotelCustomerState extends State<AddHotelCustomer> {
       'check_out': DateFormat('dd-MM-yyyy').format(customerHotel.checkout),
       'hotel': customerHotel.hotel,
       'time': DateTime.now().millisecondsSinceEpoch,
-      'room': customerHotel.room,
+      'room': customerHotel.room2
     }).catchError((e) {
+      if(room == null){
+        print('null');
+      }
       print(e);
     }).whenComplete(() {
       final DocumentReference reference =
@@ -314,29 +322,24 @@ class _AddHotelCustomerState extends State<AddHotelCustomer> {
   }
 }
 
+//Room _room = Room(title: '123',quality: '1234');
+
 class CustomerHotel {
   String name;
   String phone;
   String hotel;
   DateTime checkin;
   DateTime checkout;
-  List<Room> room;
+  List<Map<dynamic, dynamic>> room2 = [];
 
-  Map<String, dynamic> toMap() => {
-        'name': name,
-        'phone': phone,
-        'hotel': hotel,
-        'check_in': checkin,
-        'check_out': checkout,
-        'room': room.map((i) {
-          return i.toMap();
-        }).toList()
-      };
+
 }
 
 class Room {
-  String title;
-  String quality;
+    String title;
+   String quality;
 
+   Room({this.title,this.quality});
   Map<String, dynamic> toMap() => {'title': title, 'quality': quality};
+
 }
