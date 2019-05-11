@@ -1,9 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:hotel_manager/route/routes.dart';
 import 'package:hotel_manager/screens/components/global_data.dart';
-import 'package:hotel_manager/screens/route/routes.dart';
-import 'package:hotel_manager/theme/color.dart';
 import 'package:hotel_manager/theme/image.dart';
 
 import '../main_screen.dart';
