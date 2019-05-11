@@ -60,121 +60,132 @@ class _ListHotelContentState extends State<ListHotelContent> {
   Widget _data(BuildContext context, DocumentSnapshot snapshot) {
     final data = HotelData.fromSnapshot(snapshot);
 
-    return Slidable(
-      delegate: SlidableDrawerDelegate(),
-      actionExtentRatio: 0.25,
-      actions: <Widget>[
-        IconSlideAction(
-          onTap: () {
-            print(data.phone);
-            launch("tel://${data.phone}");
-          },
-          icon: Icons.phone,
-          color: Colors.transparent,
-          caption: 'Call',
-          foregroundColor: AppColors.primary,
-        )
-      ],
-      secondaryActions: <Widget>[
-        IconSlideAction(
-          icon: Icons.edit,
-          color: Colors.transparent,
-          caption: 'Edit',
-          foregroundColor: AppColors.primary,
-        ),
-        IconSlideAction(
-          onTap: () {
-            //function();
-            Firestore.instance.collection('HOTEL_BOOKING_LIST').document(snapshot.documentID).delete();
-          },
-          icon: Icons.delete,
-          color: Colors.transparent,
-          caption: 'Delete',
-          foregroundColor: AppColors.primary,
-        )
-      ],
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: AppColors.cardColor,
-              borderRadius: BorderRadius.circular(25),
-            ),
-            child: ExpansionTile(
 
-              title: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(data.name, style: headingText),
-                  Padding(
-                    padding: EdgeInsets.only(top: 5.0),
-                    child: Text(data.hotel, style: subText),
-                  )
-                ],
+
+     return Slidable(
+
+        delegate: SlidableDrawerDelegate(),
+        actionExtentRatio: 0.25,
+        actions: <Widget>[
+          IconSlideAction(
+            onTap: () {
+              print(data.phone);
+              launch("tel://${data.phone}");
+            },
+            icon: Icons.phone,
+            color: Colors.transparent,
+            caption: 'Call',
+            foregroundColor: AppColors.primary,
+          )
+        ],
+        secondaryActions: <Widget>[
+          IconSlideAction(
+            icon: Icons.edit,
+            color: Colors.transparent,
+            caption: 'Edit',
+            foregroundColor: AppColors.primary,
+          ),
+          IconSlideAction(
+            onTap: () {
+              //function();
+              Firestore.instance.collection('HOTEL_BOOKING_LIST').document(snapshot.documentID).delete();
+            },
+            icon: Icons.delete,
+            color: Colors.transparent,
+            caption: 'Delete',
+            foregroundColor: AppColors.primary,
+          )
+        ],
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: AppColors.cardColor,
+                borderRadius: BorderRadius.circular(25),
               ),
-              leading: Container(
-                  child: Center(
-                    child: Text(
-                      data.checkIn.substring(0, 5),
-                      style: calendarText,
+              child: ExpansionTile(
+
+                title: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(data.name, style: headingText),
+                    Padding(
+                      padding: EdgeInsets.only(top: 5.0),
+                      child: Text(data.hotel, style: subText),
+                    )
+                  ],
+                ),
+                leading: Container(
+                    child: Center(
+                      child: Text(
+                        data.checkIn.substring(0, 5),
+                        style: calendarText,
+                      ),
                     ),
-                  ),
-                  // margin: EdgeInsets.only(
-                  //     left: 10.0, top: 10.0, bottom: 10.0, right: 10.0),
-                  width: 60.0,
-                  //height: 60.0,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: AppColors.primary,
-                  )),
-              trailing: Container(
-                  child: Center(
-                    child: Text(
-                      data.checkOut.substring(0, 5),
-                      style: calendarText,
+                    // margin: EdgeInsets.only(
+                    //     left: 10.0, top: 10.0, bottom: 10.0, right: 10.0),
+                    width: 60.0,
+                    //height: 60.0,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: AppColors.primary,
+                    )),
+                trailing: Container(
+                    child: Center(
+                      child: Text(
+                        data.checkOut.substring(0, 5),
+                        style: calendarText,
+                      ),
                     ),
-                  ),
-                  // margin: EdgeInsets.only(
-                  //     left: 10.0, top: 10.0, bottom: 10.0, right: 10.0),
-                  width: 60.0,
-                  //  height: 60.0,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: AppColors.primary,
-                  )),
-              children: roomList
-            )),
-        //),
-      ),
-    );
+                    // margin: EdgeInsets.only(
+                    //     left: 10.0, top: 10.0, bottom: 10.0, right: 10.0),
+                    width: 60.0,
+                    //  height: 60.0,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: AppColors.primary,
+                    )),
+                children: _buildRoomItem(context, snapshot, data.room.length)
+              )),
+          //),
+        ),
+      );
+
   }
 
   List<Widget> roomList = List<Widget>();
 
-  _buildList(BuildContext context, DocumentSnapshot snapshot) {
-    final data = HotelData.fromSnapshot(snapshot);
-     var length = data.room.length;
-    for (int i = 0; i < length; i++) {
+//  _buildList(BuildContext context, DocumentSnapshot snapshot) {
+//    final data = HotelData.fromSnapshot(snapshot);
+//     var length = data.room.length;
+//    for (int i = 0; i < length; i++) {
+//      roomList.add( _buildRoomItem(context, snapshot, i));
+//    }
+//    print(roomList.length);
+//    return roomList;
+//  }
+  
 
-
-      roomList.add( _buildRoomItem(context, snapshot, i));
-    }
-    return roomList;
-  }
 
 
 
   _buildRoomItem(BuildContext context, DocumentSnapshot snapshot, int index) {
+    List<Widget> roomList = [];
     final data = HotelData.fromSnapshot(snapshot);
-    return Container(
-      child: Row(
-        children: <Widget>[
-        Expanded(child: Center(child: Text('${data.room[index].room} :',style: headingText,))),
-        Expanded(child: Center(child: Text(data.room[index].quality,style: headingText,)))
-        ],
-      ),
-    );
+
+    for(int i = 0; i<index;i++){
+       var _container =  Container(
+          child: Row(
+            children: <Widget>[
+              Expanded(flex:7,child: Center(child: Text('${data.room[i].room} :',style: headingText,))),
+              Expanded(flex:3,child: Center(child: Text(data.room[i].quality,style: headingText,)))
+            ],
+          ),
+        );
+         roomList.add(_container);
+        }
+    return roomList;
   }
 }
 
