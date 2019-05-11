@@ -13,7 +13,6 @@ class AddHotelCustomer extends StatefulWidget {
 }
 
 class _AddHotelCustomerState extends State<AddHotelCustomer> {
-  // List<DropdownMenuItem<String>> listDrop = [];
   CustomerHotel customerHotel = CustomerHotel();
   Room room = Room();
 
@@ -25,8 +24,6 @@ class _AddHotelCustomerState extends State<AddHotelCustomer> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   static List<String> itemList = <String>[];
   String hotelSelected = 'KS Hoàng Hưng Quy Nhơn';
-
-  //String tourSelectedTemp = 'Phu Quoc 1';
   String roomSelected = '';
 
   void loadItem() {
@@ -51,9 +48,10 @@ class _AddHotelCustomerState extends State<AddHotelCustomer> {
         initialDate: DateTime.now(),
         firstDate: DateTime(2015, 8),
         lastDate: DateTime(2101));
-    if (picked != null && picked != customerHotel.checkout)
+    if (picked != null && picked != datecheckout)
       setState(() {
-        customerHotel.checkout = picked;
+        datecheckout = picked;
+        customerHotel.checkout = datecheckout;
       });
   }
 
@@ -63,16 +61,15 @@ class _AddHotelCustomerState extends State<AddHotelCustomer> {
         initialDate: DateTime.now(),
         firstDate: DateTime(2015, 8),
         lastDate: DateTime(2101));
-    if (picked != null && picked != customerHotel.checkin)
+    if (picked != null && picked != datecheckin)
       setState(() {
-        customerHotel.checkin = picked;
+       datecheckin = picked;
+       customerHotel.checkin = datecheckin;
       });
   }
 
   @override
   Widget build(BuildContext context) {
-    customerHotel.checkin = DateTime.now();
-    customerHotel.checkout = DateTime.now();
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       key: _scaffoldKey,
@@ -144,7 +141,7 @@ class _AddHotelCustomerState extends State<AddHotelCustomer> {
                         child: FlatButton(
                             child: Text(
                               DateFormat('dd-MM-yyyy')
-                                  .format(customerHotel.checkin),
+                                  .format(datecheckin),
                               style: TextStyle(fontSize: 20),
                             ),
                             onPressed: () => _checkin(context))),
@@ -155,7 +152,7 @@ class _AddHotelCustomerState extends State<AddHotelCustomer> {
                         child: FlatButton(
                             child: Text(
                               DateFormat('dd-MM-yyyy')
-                                  .format(customerHotel.checkout),
+                                  .format(datecheckout),
                               style: TextStyle(fontSize: 20),
                             ),
                             onPressed: () => _checkout(context))),
