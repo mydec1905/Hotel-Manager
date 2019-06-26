@@ -1,4 +1,4 @@
-# hotel_manager
+# TRAVEL MANAGEMENT
 
 A new Flutter project.
 
