@@ -1,4 +1,6 @@
 {
-  "app_name": "Travel Management"
+  "app_name": "Travel Management",
+  "cancel": "Cancel",
+  "confirm":"Confirm"
 }
 

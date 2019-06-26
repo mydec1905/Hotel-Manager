@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hotel_manager/constants/constants.dart';
 import 'package:hotel_manager/key_data/stream_data.dart';
+import 'package:hotel_manager/localization/flutter_localizations.dart';
 import 'package:hotel_manager/screens/main_screen/animate_menu.dart';
 import 'package:hotel_manager/theme/color.dart';
 import 'package:hotel_manager/theme/image.dart';
@@ -230,8 +231,8 @@ class TourScreenState extends State<TourScreen> with TickerProviderStateMixin {
                                         locale: 'en',
                                         minYear: 1970,
                                         maxYear: 2020,
-                                        cancel: Text('Cancel'),
-                                        confirm: Text('Confirm'),
+                                        cancel: Text(FlutterLocalizations.of(context).getString('cancel')),
+                                        confirm: Text(FlutterLocalizations.of(context).getString('confirm')),
                                         dateFormat: 'dd-mm-yyyy',
                                         onChanged: (year, month, date) {
                                           setState(() {
