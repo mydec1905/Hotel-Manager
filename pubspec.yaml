@@ -34,6 +34,10 @@ dependencies:
   date_format: ^1.0.6
   flutter_localizations:
     sdk: flutter
+  mobx: ^0.2.1+1
+  flutter_mobx:
+  build_runner:
+  mobx_codegen:
 
 
 
