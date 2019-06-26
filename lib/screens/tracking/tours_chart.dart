@@ -2,10 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_circular_chart/flutter_circular_chart.dart';
-import 'package:hotel_manager/screens/components/loading_indicator.dart';
-import 'package:hotel_manager/key_data/stream_data.dart';
-import 'package:hotel_manager/theme/color.dart';
 import 'package:hotel_manager/theme/text_style.dart';
+import 'package:hotel_manager/widgets/loading_indicator.dart';
 
 class TourChart extends StatefulWidget {
   @override

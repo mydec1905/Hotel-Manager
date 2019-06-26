@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:hotel_manager/screens/components/loading_indicator.dart';
 import 'package:hotel_manager/key_data/stream_data.dart';
 import 'package:hotel_manager/theme/color.dart';
 import 'package:hotel_manager/theme/text_style.dart';
+import 'package:hotel_manager/widgets/loading_indicator.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:date_format/date_format.dart';
-
 var streamDataHotel = StreamData.streamHotelDefault;
 
 class ListHotelContent extends StatefulWidget {

@@ -1,20 +1,20 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:hotel_manager/screens/components/button.dart';
-
-import 'package:hotel_manager/screens/components/calendar.dart';
-import 'package:hotel_manager/screens/components/fade_box.dart';
+import 'package:hotel_manager/constants/constants.dart';
 import 'package:hotel_manager/key_data/stream_data.dart';
-
-import 'package:hotel_manager/screens/menu/animate_menu.dart';
+import 'package:hotel_manager/screens/main_screen/animate_menu.dart';
 import 'package:hotel_manager/theme/color.dart';
+import 'package:hotel_manager/theme/image.dart';
+import 'package:hotel_manager/widgets/button.dart';
+import 'package:hotel_manager/widgets/calendar.dart';
+import 'package:hotel_manager/widgets/fade_box.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
 import 'package:flutter/foundation.dart';
 
 import 'add_tours_booking.dart';
-import 'animation.dart';
+import 'package:hotel_manager/widgets/animation.dart';
 import 'list_tour_data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
@@ -27,26 +27,26 @@ String dateSelected = DateFormat('dd-MM-yyyy').format(now);
 
 
 final Screen toursBooking = new Screen(
-    title: 'TOURS BOOKING',
+    title: Constants.idTourScreen.toUpperCase(),
     background: new DecorationImage(
-      image: new AssetImage('assets/Sea_and_sky_light.jpg'),
+      image: new AssetImage(Images.background),
       fit: BoxFit.cover,
     ),
     contentBuilder: (BuildContext context) {
-      return ToursBooking();
+      return TourScreen();
     });
 
 
 
 
-class ToursBooking extends StatefulWidget {
-  const ToursBooking({Key key}) : super(key: key);
+class TourScreen extends StatefulWidget {
+  const TourScreen({Key key}) : super(key: key);
 
   @override
-  ToursBookingState createState() => new ToursBookingState();
+  TourScreenState createState() => new TourScreenState();
 }
 
-class ToursBookingState extends State<ToursBooking> with TickerProviderStateMixin {
+class TourScreenState extends State<TourScreen> with TickerProviderStateMixin {
   Animation<double> containerGrowAnimation;
   AnimationController _screenController;
   AnimationController _buttonController;

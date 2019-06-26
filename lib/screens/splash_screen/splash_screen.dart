@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:hotel_manager/route/routes.dart';
-import 'package:hotel_manager/screens/components/global_data.dart';
 import 'package:hotel_manager/theme/image.dart';
 
-import '../main_screen.dart';
+import 'package:hotel_manager/screens/main_screen/main_screen.dart';
+import 'package:hotel_manager/widgets/global_data.dart';
 
 class SplashScreen extends StatefulWidget {
   @override

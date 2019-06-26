@@ -2,63 +2,69 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:hotel_manager/key_data/key_tour_data.dart';
-import 'package:hotel_manager/screens/components/custom_appbar.dart';
+import 'package:hotel_manager/key_data/key_hotel_data.dart';
+import 'package:hotel_manager/theme/image.dart';
+import 'package:hotel_manager/widgets/custom_appbar.dart';
 import 'package:intl/intl.dart';
 
-class AddCustomer extends StatefulWidget {
+class AddHotelCustomer extends StatefulWidget {
   @override
-  _AddCustomerState createState() => _AddCustomerState();
+  _AddHotelCustomerState createState() => _AddHotelCustomerState();
 }
 
-class _AddCustomerState extends State<AddCustomer> {
-  List<DropdownMenuItem<String>> listDrop = [];
-  DateTime selectedDate = DateTime.now();
-  String name, phone, quality, pickupLocation, key;
+class _AddHotelCustomerState extends State<AddHotelCustomer> {
+  CustomerHotel customerHotel = CustomerHotel();
+  Room room = Room();
+
+  DateTime datecheckout = DateTime.now();
+  DateTime datecheckin = DateTime.now();
+  String name, phone, quality;
 
   final _formKey = GlobalKey<FormState>();
-
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
   static List<String> itemList = <String>[];
-  String locationSelected = 'Phu Quoc';
-  String tourSelectedTemp = 'Phu Quoc 1';
-  String tourSelected = '';
+  String hotelSelected = 'KS Hoàng Hưng Quy Nhơn';
+  String roomSelected = '';
 
   void loadItem() {
-    if (locationSelected == 'Phu Quoc') {
+    if (hotelSelected == 'KS Hoàng Hưng Quy Nhơn') {
       setState(() {
-        itemList = KeyTourData.tourPhuQuoc;
-        key = 'PQ';
+        itemList = KeyHotelData.hotelQuyNhon;
         print('---->$itemList');
       });
-      tourSelected = 'Phu Quoc 1';
-    } else if (locationSelected == 'Nha Trang') {
+      roomSelected = 'Phòng Đơn';
+    } else if (hotelSelected == 'KS Bạch Dương Phú Yên') {
       setState(() {
-        itemList = KeyTourData.tourNhaTrang;
-        key = 'NT';
+        itemList = KeyHotelData.hotelPhuYen;
         print('---->$itemList');
       });
-      tourSelected = 'Nha Trang 1';
-    }else if (locationSelected == 'Hoi An') {
-      setState(() {
-        itemList = KeyTourData.tourHoiAn;
-        key = 'NT';
-        print('---->$itemList');
-      });
-      tourSelected = 'Hoi An 1';
+      roomSelected = 'Phòng Đôi Không Cửa Sổ - 1m6';
     }
   }
 
-  Future<Null> _selectDate(BuildContext context) async {
+  Future<Null> _checkout(BuildContext context) async {
     final DateTime picked = await showDatePicker(
         context: context,
-        initialDate: selectedDate,
+        initialDate: DateTime.now(),
         firstDate: DateTime(2015, 8),
         lastDate: DateTime(2101));
-    if (picked != null && picked != selectedDate)
+    if (picked != null && picked != datecheckout)
       setState(() {
-        selectedDate = picked;
+        datecheckout = picked;
+        customerHotel.checkout = datecheckout;
+      });
+  }
+
+  Future<Null> _checkin(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(2015, 8),
+        lastDate: DateTime(2101));
+    if (picked != null && picked != datecheckin)
+      setState(() {
+       datecheckin = picked;
+       customerHotel.checkin = datecheckin;
       });
   }
 
@@ -70,7 +76,7 @@ class _AddCustomerState extends State<AddCustomer> {
       body: Container(
         decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage('assets/Sea_and_sky_light.jpg'),
+                image: AssetImage(Images.background),
                 fit: BoxFit.cover)),
         child: Form(
           key: _formKey,
@@ -105,7 +111,7 @@ class _AddCustomerState extends State<AddCustomer> {
                         decoration: InputDecoration(
                             hintText: 'Name',
                             hintStyle: TextStyle(color: Colors.grey)),
-                        onSaved: (value) => this.name = value,
+                        onSaved: (value) => this.customerHotel.name = value,
                       ),
                     ),
                   ),
@@ -121,7 +127,7 @@ class _AddCustomerState extends State<AddCustomer> {
                         decoration: InputDecoration(
                             hintText: 'Phone',
                             hintStyle: TextStyle(color: Colors.grey)),
-                        onSaved: (value) => this.phone = value,
+                        onSaved: (value) => this.customerHotel.phone = value,
                       ),
                     ),
                   ),
@@ -131,63 +137,55 @@ class _AddCustomerState extends State<AddCustomer> {
                 children: <Widget>[
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextFormField(
-                        keyboardType: TextInputType.numberWithOptions(),
-                        autovalidate: false,
-                        validator: (value) {
-                          if (value.isEmpty) return 'Input Quality';
-                        },
-                        decoration: InputDecoration(
-                            hintText: 'Quality',
-                            hintStyle: TextStyle(color: Colors.grey)),
-                        onSaved: (value) => this.quality = value,
-                      ),
-                    ),
+                        padding: const EdgeInsets.all(8.0),
+                        child: FlatButton(
+                            child: Text(
+                              DateFormat('dd-MM-yyyy')
+                                  .format(datecheckin),
+                              style: TextStyle(fontSize: 20),
+                            ),
+                            onPressed: () => _checkin(context))),
                   ),
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextFormField(
-                        textCapitalization: TextCapitalization.characters,
-                        autovalidate: false,
-                        validator: (value) {
-                          if (value.isEmpty) return 'Input Pickup Location';
-                        },
-                        decoration: InputDecoration(
-                            hintText: 'Pick Up Location',
-                            hintStyle: TextStyle(color: Colors.grey)),
-                        onSaved: (value) => this.pickupLocation = value,
-                      ),
-                    ),
+                        padding: const EdgeInsets.all(8.0),
+                        child: FlatButton(
+                            child: Text(
+                              DateFormat('dd-MM-yyyy')
+                                  .format(datecheckout),
+                              style: TextStyle(fontSize: 20),
+                            ),
+                            onPressed: () => _checkout(context))),
                   ),
                 ],
               ),
               Row(
                 children: <Widget>[
                   Expanded(
+                    flex: 2,
                     child: Padding(
                       padding: const EdgeInsets.all(20),
-                      child:
-                      DropdownButtonHideUnderline(
+                      child: DropdownButtonHideUnderline(
                         child: Column(
                           children: <Widget>[
                             InputDecorator(
                               decoration: InputDecoration(
-                                  labelText: 'Location',
+                                  labelText: 'Hotel',
                                   labelStyle: TextStyle(fontSize: 25)),
                               //isEmpty: locationSelected == null,
                               child: new DropdownButton<String>(
-                                value: locationSelected,
+                                value: hotelSelected,
                                 isDense: true,
                                 onChanged: (String newValue) {
                                   setState(() {
-                                    locationSelected = newValue;
-                                    print(locationSelected);
+                                    hotelSelected = newValue;
+                                    customerHotel.hotel = hotelSelected;
+                                    print(customerHotel.hotel);
                                     loadItem();
                                   });
                                 },
-                                items: KeyTourData.locationList.map((String value) {
+                                items:
+                                    KeyHotelData.hotelList.map((String value) {
                                   return DropdownMenuItem<String>(
                                     value: value,
                                     child: Text(value),
@@ -202,34 +200,42 @@ class _AddCustomerState extends State<AddCustomer> {
                   ),
                   Expanded(
                     child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: FlatButton(
-                            child: Text(
-                              DateFormat('dd-MM-yyyy').format(selectedDate),
-                              style: TextStyle(fontSize: 20),
-                            ),
-                            onPressed: () => _selectDate(context))),
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        keyboardType: TextInputType.numberWithOptions(),
+                        autovalidate: false,
+                        validator: (value) {
+                          if (value.isEmpty) return 'Input Quality';
+                        },
+                        decoration: InputDecoration(
+                            hintText: 'Quality',
+                            hintStyle: TextStyle(color: Colors.grey)),
+                        onSaved: (value) {room.quality = value;
+
+                        }
+                      ),
+                    ),
                   ),
                 ],
               ),
               Padding(
                 padding: const EdgeInsets.all(20),
-                child:
-                DropdownButtonHideUnderline(
+                child: DropdownButtonHideUnderline(
                   child: Column(
                     children: <Widget>[
                       InputDecorator(
                         decoration: InputDecoration(
-                            labelText: 'Select Tour',
+                            labelText: 'Select Room',
                             labelStyle: TextStyle(fontSize: 25)),
-                        isEmpty: tourSelected == null,
+                        isEmpty: roomSelected == null,
                         child: new DropdownButton<String>(
-                          value: tourSelected,
+                          value: roomSelected,
                           isDense: true,
                           onChanged: (String newValue) {
                             setState(() {
-                              tourSelected = newValue;
-                              print(tourSelected);
+                              roomSelected = newValue;
+                              room.title = roomSelected;
+                              print(room.title);
                             });
                           },
                           items: itemList.map((String value) {
@@ -255,6 +261,7 @@ class _AddCustomerState extends State<AddCustomer> {
                     Navigator.pop(context);
                     setState(() {
                       itemList = [];
+
                     });
                   }
                 },
@@ -273,32 +280,33 @@ class _AddCustomerState extends State<AddCustomer> {
   }
 
   Future<void> save() async {
+
+    customerHotel.room2.add(room.toMap());
     final Firestore _firestore = Firestore.instance;
     DocumentReference reference =
-        _firestore.collection('TOUR_BOOKING_LIST').document();
+        _firestore.collection('HOTEL_BOOKING_LIST').document();
     return reference.setData({
-      'name': name,
-      'phone': phone,
-      'quality': quality,
-      'pick_up_location': pickupLocation,
-      'date': DateFormat('dd-MM-yyyy').format(selectedDate),
-      'tour': tourSelected,
-      'location': locationSelected,
-      'key': key,
+      'name': customerHotel.name,
+      'phone': customerHotel.phone,
+      'check_in': DateFormat('dd-MM-yyyy').format(customerHotel.checkin),
+      'check_out': DateFormat('dd-MM-yyyy').format(customerHotel.checkout),
+      'hotel': customerHotel.hotel,
       'time': DateTime.now().millisecondsSinceEpoch,
+      'room': customerHotel.room2
+    }).catchError((e) {
+      if(room == null){
+        print('null');
+      }
+      print(e);
     }).whenComplete(() {
-      print('saved');
-      //  updateCountBooking();
-    }).whenComplete(() {
-      final DocumentReference reference = Firestore.instance
-          .collection(locationSelected)
-          .document(tourSelected);
+      final DocumentReference reference =
+          Firestore.instance.collection(hotelSelected).document(roomSelected);
       Firestore.instance.runTransaction((Transaction transaction) async {
         DocumentSnapshot snapshot = await transaction.get(reference);
         if (snapshot.exists) {
           await transaction.update(reference, <String, dynamic>{
             'book_count': snapshot.data['book_count'] + int.parse(quality),
-            'time_update' : DateTime.now().toIso8601String()
+            'time_update': DateTime.now().toIso8601String()
           });
           print('snapshot exists');
         } else {
@@ -309,4 +317,26 @@ class _AddCustomerState extends State<AddCustomer> {
       });
     });
   }
+}
+
+//Room _room = Room(title: '123',quality: '1234');
+
+class CustomerHotel {
+  String name;
+  String phone;
+  String hotel;
+  DateTime checkin;
+  DateTime checkout;
+  List<Map<dynamic, dynamic>> room2 = [];
+
+
+}
+
+class Room {
+    String title;
+   String quality;
+
+   Room({this.title,this.quality});
+  Map<String, dynamic> toMap() => {'title': title, 'quality': quality};
+
 }

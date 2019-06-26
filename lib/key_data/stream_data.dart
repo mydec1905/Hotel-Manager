@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:hotel_manager/screens/tours_booking/toursbooking.dart';
+import 'package:hotel_manager/screens/hotel_screen/hotel_screen.dart';
 import 'package:hotel_manager/screens/tracking/tours_tracking.dart';
 class StreamData{
 
