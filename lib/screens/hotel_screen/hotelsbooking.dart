@@ -1,16 +1,15 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:hotel_manager/screens/components/button.dart';
-
-import 'package:hotel_manager/screens/components/calendar.dart';
-import 'package:hotel_manager/screens/components/fade_box.dart';
+import 'package:hotel_manager/constants/constants.dart';
 import 'package:hotel_manager/key_data/stream_data.dart';
-
-import 'package:hotel_manager/screens/menu/animate_menu.dart';
-import 'package:hotel_manager/screens/tours_booking/add_tours_booking.dart';
-import 'package:hotel_manager/screens/tours_booking/animation.dart';
+import 'package:hotel_manager/screens/main_screen/animate_menu.dart';
+import 'package:hotel_manager/screens/tour_screen/animation.dart';
 import 'package:hotel_manager/theme/color.dart';
+import 'package:hotel_manager/theme/image.dart';
+import 'package:hotel_manager/widgets/button.dart';
+import 'package:hotel_manager/widgets/calendar.dart';
+import 'package:hotel_manager/widgets/fade_box.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
 import 'package:flutter/foundation.dart';
@@ -26,9 +25,9 @@ var _month = DateTime.now().month;
 var _year = DateTime.now().year;
 String dateSelected = DateFormat('dd-MM-yyyy').format(now);
 final Screen hotelsBooking = new Screen(
-    title: 'HOTELS BOOKING',
+    title: Constants.idHotelScreen.toUpperCase(),
     background: new DecorationImage(
-      image: new AssetImage('assets/Sea_and_sky_light.jpg'),
+      image: new AssetImage(Images.background),
       fit: BoxFit.cover,
     ),
     contentBuilder: (BuildContext context) {

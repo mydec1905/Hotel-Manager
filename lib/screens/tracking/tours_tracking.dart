@@ -1,15 +1,16 @@
 
 import 'package:flutter/material.dart';
 import 'package:hotel_manager/key_data/key_tour_data.dart';
-import 'package:hotel_manager/screens/menu/animate_menu.dart';
+import 'package:hotel_manager/screens/main_screen/animate_menu.dart';
 import 'package:hotel_manager/screens/tracking/tours_progress.dart';
 import 'package:hotel_manager/theme/color.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:hotel_manager/theme/image.dart';
 import 'tours_chart.dart';
 final Screen tours_tracking_screen = new Screen(
     title: 'TOURS TRACKING',
     background: new DecorationImage(
-      image: new AssetImage('assets/Sea_and_sky_light.jpg'),
+      image: new AssetImage(Images.background),
       fit: BoxFit.cover,
     ),
     contentBuilder: (BuildContext context) {

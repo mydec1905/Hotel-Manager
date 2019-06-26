@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hotel_manager/key_data/key_hotel_data.dart';
-import 'package:hotel_manager/screens/components/custom_appbar.dart';
-import 'package:hotel_manager/screens/hotel_booking/list_hotel_data.dart';
+import 'package:hotel_manager/theme/image.dart';
+import 'package:hotel_manager/widgets/custom_appbar.dart';
 import 'package:intl/intl.dart';
 
 class AddHotelCustomer extends StatefulWidget {
@@ -76,7 +76,7 @@ class _AddHotelCustomerState extends State<AddHotelCustomer> {
       body: Container(
         decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage('assets/Sea_and_sky_light.jpg'),
+                image: AssetImage(Images.background),
                 fit: BoxFit.cover)),
         child: Form(
           key: _formKey,

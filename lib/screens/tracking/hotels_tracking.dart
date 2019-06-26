@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:hotel_manager/screens/menu/animate_menu.dart';
+import 'package:hotel_manager/screens/main_screen/animate_menu.dart';
+import 'package:hotel_manager/theme/image.dart';
 final Screen hotels_tracking_screen = Screen(
   title: 'HOTELS TRACKING',
   background: new DecorationImage(
-    image: new AssetImage('assets/Sea_and_sky_light.jpg'),
+    image: new AssetImage(Images.background),
     fit: BoxFit.cover,
   ),
   contentBuilder: (BuildContext context){

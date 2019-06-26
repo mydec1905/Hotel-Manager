@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hotel_manager/theme/image.dart';
 
 import 'animate_menu.dart';
 
@@ -169,7 +170,7 @@ class _MenuScreenState extends State<MenuScreen> with TickerProviderStateMixin {
             height: double.infinity,
             decoration: new BoxDecoration(
               image: new DecorationImage(
-                image: new AssetImage('assets/Sea_and_sky_light.jpg'),
+                image: new AssetImage(Images.background),
                 fit: BoxFit.cover,
               ),
             ),
