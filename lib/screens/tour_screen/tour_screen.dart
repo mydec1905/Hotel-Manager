@@ -327,13 +327,13 @@ class TourScreenState extends State<TourScreen> with TickerProviderStateMixin {
                                           context: context,
                                           builder: (BuildContext context) {
                                             return CupertinoActionSheet(
-                                              title: Text('FILTER'),
+                                              title: Text(FlutterLocalizations.of(context).getString('filter').toUpperCase()),
                                               cancelButton:
                                                   CupertinoActionSheetAction(
                                                       onPressed: () {
                                                         Navigator.pop(context);
                                                       },
-                                                      child: Text('CANCEL')),
+                                                      child: Text(FlutterLocalizations.of(context).getString('cancel').toUpperCase())),
                                               message: Text(
                                                   'Choose your filter option'),
                                               actions: <Widget>[
