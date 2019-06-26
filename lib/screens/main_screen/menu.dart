@@ -165,29 +165,34 @@ class _MenuScreenState extends State<MenuScreen> with TickerProviderStateMixin {
             }
           }
 
-          return new Container(
-            width: double.infinity,
-            height: double.infinity,
-            decoration: new BoxDecoration(
-              image: new DecorationImage(
-                image: new AssetImage(Images.background),
-                fit: BoxFit.cover,
+          return  GestureDetector(
+            onTap: (){
+              menuController.toggle();
+            },
+            child: Container(
+              width: double.infinity,
+              height: double.infinity,
+              decoration:  BoxDecoration(
+                image:  DecorationImage(
+                  image:  AssetImage(Images.background),
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-            child: new Material(
-              color: Colors.transparent,
-              child: new Stack(
-                children: [
-                  createMenuTitle(menuController),
-                  createMenuItems(menuController),
-                  shouldRenderSelector
-                      ? new ItemSelector(
-                    topY: actualSelectorYTop,
-                    bottomY: actualSelectorYBottom,
-                    opacity: selectorOpacity,
-                  )
-                      : new Container(),
-                ],
+              child: new Material(
+                color: Colors.transparent,
+                child: new Stack(
+                  children: [
+                    createMenuTitle(menuController),
+                    createMenuItems(menuController),
+                    shouldRenderSelector
+                        ? new ItemSelector(
+                      topY: actualSelectorYTop,
+                      bottomY: actualSelectorYBottom,
+                      opacity: selectorOpacity,
+                    )
+                        : new Container(),
+                  ],
+                ),
               ),
             ),
           );
