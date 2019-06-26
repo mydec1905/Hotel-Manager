@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hotel_manager/constants/constants.dart';
 import 'package:hotel_manager/screens/home_screen/home_screen.dart';
-import 'package:hotel_manager/screens/hotel_screen/hotelsbooking.dart';
+import 'package:hotel_manager/screens/hotel_screen/hotel_screen.dart';
 import 'package:hotel_manager/screens/main_screen/animate_menu.dart';
 import 'package:hotel_manager/screens/main_screen/menu.dart';
-import 'package:hotel_manager/screens/tour_screen/toursbooking.dart';
+import 'package:hotel_manager/screens/tour_screen/tour_screen.dart';
 import 'package:hotel_manager/screens/tracking/hotels_tracking.dart';
 
 class MainScreen extends StatefulWidget {
@@ -51,7 +51,7 @@ class _MainScreenState extends State<MainScreen> {
             });
           } else if (itemId == Constants.idHotelScreen) {
             setState(() {
-              activeScreen = hotelsBooking;
+              activeScreen = hotelScreen;
             });
           } else if (itemId == Constants.idTourScreen) {
             setState(() {
@@ -59,7 +59,7 @@ class _MainScreenState extends State<MainScreen> {
             });
           } else if (itemId == Constants.idChartScreen) {
             setState(() {
-              activeScreen = hotels_tracking_screen;
+              activeScreen = chartScreen;
             });
           }
         },

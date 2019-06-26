@@ -14,7 +14,7 @@ import 'package:flutter/scheduler.dart' show timeDilation;
 import 'package:flutter/foundation.dart';
 
 import 'add_tours_booking.dart';
-import 'animation.dart';
+import 'package:hotel_manager/widgets/animation.dart';
 import 'list_tour_data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
@@ -33,20 +33,20 @@ final Screen toursBooking = new Screen(
       fit: BoxFit.cover,
     ),
     contentBuilder: (BuildContext context) {
-      return ToursBooking();
+      return TourScreen();
     });
 
 
 
 
-class ToursBooking extends StatefulWidget {
-  const ToursBooking({Key key}) : super(key: key);
+class TourScreen extends StatefulWidget {
+  const TourScreen({Key key}) : super(key: key);
 
   @override
-  ToursBookingState createState() => new ToursBookingState();
+  TourScreenState createState() => new TourScreenState();
 }
 
-class ToursBookingState extends State<ToursBooking> with TickerProviderStateMixin {
+class TourScreenState extends State<TourScreen> with TickerProviderStateMixin {
   Animation<double> containerGrowAnimation;
   AnimationController _screenController;
   AnimationController _buttonController;

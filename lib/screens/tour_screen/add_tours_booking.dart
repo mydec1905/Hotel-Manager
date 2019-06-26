@@ -41,7 +41,7 @@ class _AddCustomerState extends State<AddCustomer> {
         print('---->$itemList');
       });
       tourSelected = 'Nha Trang 1';
-    }else if (locationSelected == 'Hoi An') {
+    } else if (locationSelected == 'Hoi An') {
       setState(() {
         itemList = KeyTourData.tourHoiAn;
         key = 'NT';
@@ -71,8 +71,7 @@ class _AddCustomerState extends State<AddCustomer> {
       body: Container(
         decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage(Images.background),
-                fit: BoxFit.cover)),
+                image: AssetImage(Images.background), fit: BoxFit.cover)),
         child: Form(
           key: _formKey,
           child: Column(
@@ -101,7 +100,10 @@ class _AddCustomerState extends State<AddCustomer> {
                         autovalidate: false,
                         textCapitalization: TextCapitalization.characters,
                         validator: (value) {
-                          if (value.isEmpty) return 'Input Name';
+                          if (value.isEmpty) {
+                            return 'Input Name';
+                          }
+                          return null;
                         },
                         decoration: InputDecoration(
                             hintText: 'Name',
@@ -117,7 +119,10 @@ class _AddCustomerState extends State<AddCustomer> {
                         keyboardType: TextInputType.numberWithOptions(),
                         autovalidate: false,
                         validator: (value) {
-                          if (value.isEmpty) return 'Input Phone';
+                          if (value.isEmpty) {
+                            return 'Input Phone';
+                          }
+                          return null;
                         },
                         decoration: InputDecoration(
                             hintText: 'Phone',
@@ -137,7 +142,10 @@ class _AddCustomerState extends State<AddCustomer> {
                         keyboardType: TextInputType.numberWithOptions(),
                         autovalidate: false,
                         validator: (value) {
-                          if (value.isEmpty) return 'Input Quality';
+                          if (value.isEmpty) {
+                            return 'Input Quality';
+                          }
+                          return null;
                         },
                         decoration: InputDecoration(
                             hintText: 'Quality',
@@ -153,7 +161,9 @@ class _AddCustomerState extends State<AddCustomer> {
                         textCapitalization: TextCapitalization.characters,
                         autovalidate: false,
                         validator: (value) {
-                          if (value.isEmpty) return 'Input Pickup Location';
+                          if (value.isEmpty) {
+                            return 'Input Pickup Location';
+                          }return null;
                         },
                         decoration: InputDecoration(
                             hintText: 'Pick Up Location',
@@ -169,8 +179,7 @@ class _AddCustomerState extends State<AddCustomer> {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(20),
-                      child:
-                      DropdownButtonHideUnderline(
+                      child: DropdownButtonHideUnderline(
                         child: Column(
                           children: <Widget>[
                             InputDecorator(
@@ -188,7 +197,8 @@ class _AddCustomerState extends State<AddCustomer> {
                                     loadItem();
                                   });
                                 },
-                                items: KeyTourData.locationList.map((String value) {
+                                items: KeyTourData.locationList
+                                    .map((String value) {
                                   return DropdownMenuItem<String>(
                                     value: value,
                                     child: Text(value),
@@ -215,8 +225,7 @@ class _AddCustomerState extends State<AddCustomer> {
               ),
               Padding(
                 padding: const EdgeInsets.all(20),
-                child:
-                DropdownButtonHideUnderline(
+                child: DropdownButtonHideUnderline(
                   child: Column(
                     children: <Widget>[
                       InputDecorator(
@@ -299,7 +308,7 @@ class _AddCustomerState extends State<AddCustomer> {
         if (snapshot.exists) {
           await transaction.update(reference, <String, dynamic>{
             'book_count': snapshot.data['book_count'] + int.parse(quality),
-            'time_update' : DateTime.now().toIso8601String()
+            'time_update': DateTime.now().toIso8601String()
           });
           print('snapshot exists');
         } else {

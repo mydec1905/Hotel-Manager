@@ -7,8 +7,6 @@ import 'package:hotel_manager/widgets/loading_indicator.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:date_format/date_format.dart';
-
 var streamDataHotel = StreamData.streamHotelDefault;
 
 class ListHotelContent extends StatefulWidget {
