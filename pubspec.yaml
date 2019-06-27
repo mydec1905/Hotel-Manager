@@ -38,6 +38,7 @@ dependencies:
   flutter_mobx:
   build_runner:
   mobx_codegen:
+  flutter_spinkit: ^3.1.0
 
 
 
